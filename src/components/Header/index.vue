@@ -59,11 +59,14 @@ export default {
     background-color: #eaeaea;
     height: 30px;
     line-height: 30px;
+    width: 100%;
+    overflow: hidden;
 
     .container {
       width: 1200px;
       margin: 0 auto;
       overflow: hidden;
+      background-color: #eaeaea;
 
       .loginList {
         float: left;
