@@ -5,8 +5,8 @@ import search from './search'
 Vue.use(Vuex)
 Vue.config.devtools = true
 export default new Vuex.Store({
-    modules: [
+    modules: {
         home,
         search
-    ]
+    }
 })
