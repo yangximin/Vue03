@@ -2,7 +2,7 @@
   <div id="app">
     <HeaderView />
     <router-view />
-    <FooterView v-show="!$route.meta.isHide"/>
+    <FooterView v-show="!$route.meta.isHide" />
   </div>
 </template>
 
@@ -15,8 +15,10 @@ export default {
     HeaderView,
     FooterView,
   },
+  mounted() {
+    this.$store.dispatch("categoryList");
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

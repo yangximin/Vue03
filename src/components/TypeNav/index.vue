@@ -2,7 +2,38 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <h2 class="all">全部商品分类</h2>
+      <div @mouseleave="hideNav" @mouseenter="showNav">
+        <h2 class="all">全部商品分类</h2>
+        <div class="sort" v-show="isShow">
+          <div class="all-sort-list2" @click="goSearch">
+            <div v-for="(item, index) of categoryList" @mouseleave="changeLeave" @mouseenter="changeIndex(index)"
+              :index="index" :key="item.categoryId" class="item bo" :class="{ selectActive: currentIndex == index }">
+              <h3>
+                <a :data-categoryName="item.categoryName" :data-categoryId1="item.categoryId">{{
+                  item.categoryName }}</a>
+              </h3>
+              <div class="item-list clearfix" :style="{ display: currentIndex == index ? 'block' : 'none' }">
+                <div v-for="item1 of item.categoryChild" :key="item1.categoryId" class="subitem">
+                  <dl class="fore">
+                    <dt>
+                      <a :data-categoryName="item1.categoryName" :data-categoryId2="item1.categoryId">{{
+                        item1.categoryName
+                      }}</a>
+                    </dt>
+                    <dd>
+                      <em v-for="item2 of item1.categoryChild" :key="item2.categoryId">
+                        <a :data-categoryName="item2.categoryName" :data-categoryId3="item2.categoryId"
+                          href="javascript:;">{{ item2.categoryName
+                          }}</a>
+                      </em>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -13,30 +44,6 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-      <div class="sort">
-        <div class="all-sort-list2">
-          <div v-for="(item, index) of categoryList" @mouseleave="changeLeave" @mouseenter="changeIndex(index)"
-            :index="index" :key="item.categoryId" class="item bo" :class="{ selectActive: currentIndex == index }">
-            <h3>
-              <a href="">{{ item.categoryName }}</a>
-            </h3>
-            <div class="item-list clearfix" :style="{ display: currentIndex == index ? 'block' : 'none' }">
-              <div v-for="item1 of item.categoryChild" :key="item1.categoryId" class="subitem">
-                <dl class="fore">
-                  <dt>
-                    <a href="">{{ item1.categoryName }}</a>
-                  </dt>
-                  <dd>
-                    <em v-for="item2 of item1.categoryChild" :key="item2.categoryId">
-                      <a href="">{{ item2.categoryName }}</a>
-                    </em>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -49,6 +56,7 @@ export default {
   data() {
     return {
       currentIndex: -1,
+      isShow: true
     }
   },
   methods: {
@@ -61,10 +69,41 @@ export default {
     }, 50),
     changeLeave() {
       this.currentIndex = -1;
+    },
+    goSearch(event) {
+      let dataset = event.target.dataset;
+      if (dataset.categoryname) {
+        let location = { name: 'search' }
+        let query = { categoryName: dataset.categoryname }
+        if (dataset.categoryid1) {
+          query.categoryId1 = dataset.categoryid1;
+        } else if (dataset.categoryid2) {
+          query.categoryId2 = dataset.categoryid2;
+        } else if (dataset.categoryid3) {
+          query.categoryId3 = dataset.categoryid3;
+        }
+        location.query = query;
+        location.params = this.$route.params
+        this.$router.push(location)
+      }
+    },
+    showNav() {
+      if (this.$route.name !== "home") {
+        this.isShow = true;
+        this.currentIndex = -1;
+      }
+    },
+    hideNav() {
+      if (this.$route.name !== "home") {
+        this.isShow = false;
+        this.currentIndex = -1;
+      }
     }
   },
   mounted() {
-    this.$store.dispatch("categoryList");
+    if (this.$route.name !== "home") {
+      this.isShow = false;
+    }
   },
   computed: {
     ...mapState({

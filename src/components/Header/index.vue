@@ -33,12 +33,8 @@
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
-          <input
-            type="text"
-            id="autocomplete"
-            class="input-error input-xxlarge"
-          />
-          <button class="sui-btn btn-xlarge btn-danger" type="button">
+          <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="inputValue" />
+          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">
             搜索
           </button>
         </form>
@@ -50,12 +46,26 @@
 <script>
 export default {
   name: "HeaderView",
+  data() {
+    return {
+      inputValue: ""
+    }
+  },
+  methods: {
+    goSearch() {
+      this.$router.push({
+        name: 'search',
+        params: { keyword: this.inputValue },
+        query: this.$route.query
+      })
+    }
+  }
 };
 </script>
 
 <style lang="less">
 .header {
-  & > .top {
+  &>.top {
     background-color: #eaeaea;
     height: 30px;
     line-height: 30px;
@@ -89,7 +99,7 @@ export default {
         a {
           padding: 0 10px;
 
-          & + a {
+          &+a {
             border-left: 1px solid #b3aeae;
           }
         }
@@ -97,7 +107,7 @@ export default {
     }
   }
 
-  & > .bottom {
+  &>.bottom {
     width: 1200px;
     margin: 0 auto;
     overflow: hidden;
