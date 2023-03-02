@@ -104,8 +104,7 @@ export default {
   },
   watch: {
     bannerList: {
-      handler(value) {
-        console.log(value);
+      handler() {
         this.$nextTick(() => {
           new Swiper(this.$refs.mySwiper, {
             direction: "horizontal",

@@ -8,7 +8,6 @@
 export default {
   name: "search",
   mounted() {
-    console.log(this.$route)
   }
 };
 </script>

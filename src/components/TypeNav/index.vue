@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     //  changIndex(event){
-    //   console.log(event.target.getAttribute("index"));
+    //   .log(event.target.getAttribute("index"));
     //   this.currentIndex = event.target.getAttribute("index")
     //  },
     changeIndex: throttle(function (index) {
