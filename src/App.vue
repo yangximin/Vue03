@@ -16,8 +16,8 @@ export default {
     FooterView,
   },
   mounted() {
-    this.$store.dispatch("categoryList");
-  }
+    this.$store.dispatch("home/categoryList");
+  },
 };
 </script>
 
