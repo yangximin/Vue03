@@ -6,11 +6,7 @@
         <h3 class="fl">家用电器</h3>
         <div class="fr">
           <ul class="nav-tabs clearfix">
-            <li
-              v-for="(item, index) of floorInfo.navList"
-              :key="index"
-              :class="{ active: navIndex == index }"
-            >
+            <li v-for="(item, index) of floorInfo.navList" :key="index" :class="{ active: navIndex == index }">
               <a href="javascript:;" data-toggle="tab" @click="navClick(index)">
                 {{ item.text }}
               </a>
@@ -30,25 +26,7 @@
               </ul>
               <img :src="floorInfo.imgUrl" />
             </div>
-            <div class="floorBanner">
-              <div class="swiper-container" ref="floor1Swiper">
-                <div class="swiper-wrapper">
-                  <div
-                    v-for="item of floorInfo.carouselList"
-                    :key="item.id"
-                    class="swiper-slide"
-                  >
-                    <img :src="item.imgUrl" />
-                  </div>
-                </div>
-                <!-- 如果需要分页器 -->
-                <div class="swiper-pagination"></div>
-
-                <!-- 如果需要导航按钮 -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-              </div>
-            </div>
+            <Carousel :list="floorInfo.carouselList" />
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
@@ -78,7 +56,6 @@
 </template>
 
 <script>
-import Swiper from "swiper";
 export default {
   name: "Floor",
   data() {
@@ -92,17 +69,6 @@ export default {
     },
   },
   mounted() {
-    new Swiper(this.$refs.floor1Swiper, {
-      pagination: {
-        el: ".swiper-pagination",
-        type: "bullets",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button_prev",
-      },
-    });
   },
   computed: {},
   props: ["floorInfo"],
