@@ -10,3 +10,6 @@ export const requestBannerList = () => {
 export const requestFloorList = () => {
     return mockRequest({ url: '/floor', method: 'get' })
 }
+export const requestSearchInfo = (params) => {
+    return request({ url: "/list", method: "post", data: params })
+}

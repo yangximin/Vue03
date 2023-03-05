@@ -76,11 +76,11 @@ export default {
         let location = { name: 'search' }
         let query = { categoryName: dataset.categoryname }
         if (dataset.categoryid1) {
-          query.categoryId1 = dataset.categoryid1;
+          query.category1Id = dataset.categoryid1;
         } else if (dataset.categoryid2) {
-          query.categoryId2 = dataset.categoryid2;
+          query.category1Id = dataset.categoryid2;
         } else if (dataset.categoryid3) {
-          query.categoryId3 = dataset.categoryid3;
+          query.category2Id = dataset.categoryid3;
         }
         location.query = query;
         location.params = this.$route.params
